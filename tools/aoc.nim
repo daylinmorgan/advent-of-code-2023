@@ -89,7 +89,7 @@ options:
   let today = now()
   var
     year = today.year
-    day = today.weekday.ord
+    day = parseInt(today.format("d"))
 
   for kind, key, val in getopt():
     case kind
