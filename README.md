@@ -14,3 +14,17 @@ Note: the day and year are inferred from today's date if not specified.
 ```sh
 nim r ./tools/aoc.nim # -d:1 -y:2023
 ```
+
+To quickly view solutions from your terminal use my soft-serve instance!
+
+For an individual solution:
+
+```sh
+ssh -p 23231 git.dayl.in repo blob advent-of-code-2023 solutions/day01/solution.nim
+```
+
+To interactively explore repo:
+
+```sh
+ssh -p 23231 git.dayl.in -t advent-of-code-2023
+```
