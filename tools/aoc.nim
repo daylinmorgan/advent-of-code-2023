@@ -30,27 +30,18 @@ proc partOne*(input: string): int = 0
 proc partTwo*(input: string): int = 0
 
 when isMainModule:
-  echo partOne(example)
-  echo partOne(input)
-  echo partTwo(example)
-  echo partTwo(input)
-"""
-  let test = fmt"""
-import std/unittest
-import ./solution
+  import std/unittest
 
-suite "day {day}":
-  test "part one":
-    check partOne(example) == 0
-    check partOne(input) == 0
-  test "part two":
-    check partTwo(example) == 0
-    check partTwo(input) == 0
-
+  suite "day {day}":
+    test "part one":
+      check partOne(example) == 0
+      check partOne(input) == 0
+    test "part two":
+      check partTwo(example) == 0
+      check partTwo(input) == 0
 """
   let d = fmt"solutions/day{day:0>2}"
   writeFile(d / "solution.nim", solution)
-  writeFile(d / "test.nim", test)
 
 proc newDay(year, day: int) =
   let d = fmt"solutions/day{day:0>2}"
