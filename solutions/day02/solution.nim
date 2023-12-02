@@ -1,65 +1,55 @@
-import std/[strutils, sugar]
+import std/[strutils, strscans]
 
 const example* = slurp("example.txt").strip()
 const input* = slurp("input.txt").strip()
 
-type 
-  Turn = object
-    cubes: seq[(int, string)]
+type
+  Color {.pure.} = enum
+    red, blue, green
 
+  Cubes = array[Color, int]
   Game = object
-    turns: seq[Turn]
+    turns: seq[Cubes]
 
 proc parseInput(input: string): seq[Game] =
   for line in input.splitLines:
     result.add Game()
     let turns = line.split(":")[1]
     for turn in turns.split(";"):
-      result[^1].turns.add Turn()
-      for cube in turn.split(","):
-        let s = cube.strip().split()
-        result[^1].turns[^1].cubes.add (parseInt(s[0]),s[1])
+      var cubes: Cubes
+      for cubeStr in turn.split(","):
+        var cnt: int
+        var color: string
+        discard cubeStr.strip().scanf("$i $w", cnt, color)
+        cubes[parseEnum[Color](color)] = cnt
+      result[^1].turns.add cubes
 
-proc isValid(turn: Turn): bool =
-  const limits = (red: 12, green: 13, blue: 14)
-  for cube in turn.cubes:
-    case cube[1]:
-      of "red":
-        if cube[0] > limits.red: return false
-      of "green":
-        if cube[0] > limits.green: return false
-      of "blue":
-        if cube[0] > limits.blue: return false
-      else: discard
+proc isValid(game: Game): bool =
+  const limits: Cubes = [red: 12, blue: 14, green: 13]
+  for turn in game.turns:
+    for col, cnt in turn:
+      if cnt > limits[col]:
+        return false
   return true
 
 proc partOne*(input: string): int =
   var games = parseInput(input)
   for i, game in games:
-    if collect(
-      for turn in game.turns:
-        if not turn.isValid: turn).len == 0:
+    if game.isValid():
       result += (i+1)
-
 
 proc partTwo*(input: string): int =
   var games = parseInput(input)
   for i, game in games:
-    var mins = (red: 0, green: 0, blue: 0)
+    var mins: Cubes
     for turn in game.turns:
-      for cube in turn.cubes:
-        case cube[1]:
-          of "red": mins.red = max(mins.red, cube[0])
-          of "green": mins.green = max(mins.green, cube[0])
-          of "blue": mins.blue = max(mins.blue, cube[0])
-          else: discard
-    result += mins.red * mins.green * mins.blue
-
+      for col, cnt in turn:
+        mins[col] = max(mins[col], cnt)
+    result += mins[red] * mins[green] * mins[blue]
 
 
 when isMainModule:
   import std/unittest
-
   suite "day 2":
     test "part one":
       check partOne(example) == 8
@@ -67,4 +57,3 @@ when isMainModule:
     test "part two":
       check partTwo(example) == 2286
       check partTwo(input) == 83435
-
