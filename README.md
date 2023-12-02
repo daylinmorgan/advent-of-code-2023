@@ -10,6 +10,7 @@
 
 To generate a new day and fetch the input's for a puzzle use the below command.
 Note: the day and year are inferred from today's date if not specified.
+Set advent of code session cookie to `AOC_COOKIE` environment variable.
 
 ```sh
 nim r ./tools/aoc.nim # -d:1 -y:2023
