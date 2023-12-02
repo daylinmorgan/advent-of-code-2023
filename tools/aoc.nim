@@ -18,7 +18,7 @@ proc getInput(year, day: int): string =
   return response.body().strip()
 
 proc skeleton(day: int) =
-  const solution = """
+  let solution = fmt"""
 import std/[strutils]
 
 const example* = slurp("example.txt").strip()
