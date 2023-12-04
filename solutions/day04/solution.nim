@@ -1,7 +1,6 @@
-import std/[math, sets, sequtils, strutils]
+import std/[math, sets, sequtils, strutils, macros]
 
-const example* = slurp("example.txt").strip()
-const input* = slurp("input.txt").strip()
+import ../aoc
 
 type
   Card = object
@@ -44,12 +43,10 @@ proc partTwo*(input: string): int =
   return winners.sum()
 
 
-when isMainModule:
-  import std/unittest
-  suite "day 4":
-    test "part one":
-      check partOne(example) == 13
-      check partOne(input) == 22674
-    test "part two":
-      check partTwo(example) == 30
-      check partTwo(input) == 5747443
+solve:
+  example:
+    partOne: 13
+    partTwo: 30
+  input:
+    partOne: 22674
+    partTwo: 5747443
