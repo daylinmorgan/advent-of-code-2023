@@ -15,8 +15,6 @@ macro solve*(arg: untyped): untyped =
   for stmt in arg:
     stmt.expectKind nnkCall
     stmt[0].expectKind nnkIdent
-    if not (stmt[0].eqIdent("example") or stmt[0].eqIdent("input")):
-      error "Invalid input identifier: " & stmt[0].strVal
     stmt[1].expectKind nnkStmtList
     for inputs in stmt[1]:
       inputs.expectKind nnkCall
@@ -28,9 +26,11 @@ macro solve*(arg: untyped): untyped =
         output = inputs[1][0]
         msg = newLit(part.repr & "|" & puzzleInput.repr)
       result.add quote do:
-        let color =
-          if `part`(`puzzleInput`) == `output`: fgGreen
-          else: fgRed
-        stdout.styledWriteLine(color, `msg`, fgDefault, ": ", $`output`)
+        let solution = `part`(`puzzleInput`)
+        if solution == `output`:
+          stdout.styledWriteLine(fgGreen, `msg`, fgDefault)
+        else:
+          stdout.styledWriteLine(fgRed, `msg`, fgDefault) 
+          stdout.writeLine("  expected: ", $`output`, "; got: ", solution)
 
 loadInputs()

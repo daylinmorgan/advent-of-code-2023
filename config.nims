@@ -1,5 +1,6 @@
 import std/[algorithm,os,sequtils]
 
 task solve, "run all solutions":
-  for dir in walkDir("solutions").toSeq().sortedByIt(it.path):
-    selfExec "r --hint:all:off " & dir.path & "/solution.nim"
+  for dir in walkDirRec("solutions", yieldFilter = {pcDir}).toSeq().sortedByIt(it):
+    echo "--",dir,"--"
+    selfExec "r --hint:all:off " & dir & "/solution.nim"

@@ -1,7 +1,6 @@
 import std/[strutils, strscans]
 
-const example* = slurp("example.txt").strip()
-const input* = slurp("input.txt").strip()
+import ../aoc
 
 type
   Color {.pure.} = enum
@@ -47,13 +46,10 @@ proc partTwo*(input: string): int =
         mins[col] = max(mins[col], cnt)
     result += mins[red] * mins[green] * mins[blue]
 
-
-when isMainModule:
-  import std/unittest
-  suite "day 2":
-    test "part one":
-      check partOne(example) == 8
-      check partOne(input) == 2239
-    test "part two":
-      check partTwo(example) == 2286
-      check partTwo(input) == 83435
+solve:
+  example:
+    partOne: 8
+    partTwo: 2286
+  input:
+    partOne: 2239
+    partTwo: 83435

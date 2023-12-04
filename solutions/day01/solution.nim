@@ -1,8 +1,6 @@
 import std/[strutils]
 
-const example* = slurp("example.txt").strip()
-const example2* = slurp("example2.txt").strip()
-const input* = slurp("input.txt").strip()
+import ../aoc
 
 proc parseInput(input: string): seq[string] =
   input.split("\n")
@@ -45,12 +43,23 @@ proc partTwo*(input: string): int =
         inc i
     result += parseInt(digits[0] & digits[^1])
 
-when isMainModule:
-  import std/unittest
-  suite "day 1":
-    test "part one":
-      check partOne(example) == 142
-      check partOne(input) == 54597
-    test "part two":
-      check partTwo(example2) == 281
-      check partTwo(input) == 54504
+const example2 = slurp("example2.txt").strip()
+
+solve:
+  example:
+    partOne: 142
+  example2:
+    partTwo: 281
+  input:
+    partOne: 54597
+    partTwo: 54504
+
+# when isMainModule:
+#   import std/unittest
+#   suite "day 1":
+#     test "part one":
+#       check partOne(example) == 142
+#       check partOne(input) == 54597
+#     test "part two":
+#       check partTwo(example2) == 281
+#       check partTwo(input) == 54504

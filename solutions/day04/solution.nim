@@ -1,4 +1,4 @@
-import std/[math, sets, sequtils, strutils, macros]
+import std/[math, sets, sequtils, strutils]
 
 import ../aoc
 

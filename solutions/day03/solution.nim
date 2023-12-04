@@ -1,7 +1,6 @@
 import std/[strutils, sequtils, sets, tables]
 
-const example* = slurp("example.txt").strip()
-const input* = slurp("input.txt").strip()
+import ../aoc
 
 type
   Pos = tuple[x, y: int]
@@ -76,13 +75,10 @@ proc partTwo*(input: string): int =
     if parts.len == 2:
       result += parts[0].val * parts[1].val
 
-when isMainModule:
-  import std/unittest
-
-  suite "day 3":
-    test "part one":
-      check partOne(example) == 4361
-      check partOne(input) == 536202
-    test "part two":
-      check partTwo(example) == 467835
-      check partTwo(input) == 78272573
+solve:
+  example:
+    partOne: 4361
+    partTwo: 467835
+  input:
+    partOne: 536202
+    partTwo: 78272573
