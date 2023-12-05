@@ -76,9 +76,9 @@ proc partTwo*(input: string): int =
       result += parts[0].val * parts[1].val
 
 solve:
-  example:
+  "example.txt":
     partOne: 4361
     partTwo: 467835
-  input:
+  "input.txt":
     partOne: 536202
     partTwo: 78272573

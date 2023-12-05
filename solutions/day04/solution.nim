@@ -42,11 +42,10 @@ proc partTwo*(input: string): int =
         winners[i+j].inc copies
   return winners.sum()
 
-
 solve:
-  example:
+  "example.txt":
     partOne: 13
     partTwo: 30
-  input:
+  "input.txt":
     partOne: 22674
     partTwo: 5747443

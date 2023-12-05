@@ -47,9 +47,9 @@ proc partTwo*(input: string): int =
     result += mins[red] * mins[green] * mins[blue]
 
 solve:
-  example:
+  "example.txt":
     partOne: 8
     partTwo: 2286
-  input:
+  "input.txt":
     partOne: 2239
     partTwo: 83435
